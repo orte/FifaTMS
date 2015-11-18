@@ -9,9 +9,6 @@ public class clsMenu {
 
 	clsGestor ges=new clsGestor();
 	public void MenuPrincipal(){
-		/*
-		 * Saca por pantalla todas las opciones del programa, sin más
-		 */
 		System.out.println("Bienvenido al FIFA Transfer Matching System");
 		System.out.println("Introduzca una opción");
 		System.out.println("1.- Dar de alta nuevo club");
