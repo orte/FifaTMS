@@ -46,7 +46,7 @@ public class clsClub implements Serializable, Comparable<clsClub>{
 	public String toString() {
 		// TODO Auto-generated method stub
 		String string;
-		string=nombre+". País: "+pais+". Presupuesto para fichajes: "+presupuesto;
+		string=nombre+" ("+pais+")";
 		return string;
 	}
 	@Override
