@@ -1,15 +1,18 @@
 package LN;
 
 import java.io.Serializable;
-import java.util.LinkedList;
+
+/**
+ * Objeto de clase Agente, que hereda de clsPersona e implementa las interfaces Serializable y Comparable.
+ * Además de los atributos heredados de la clase Persona, tiene otros tres que indican su número de licencia,
+ * dinero recibido en traspasos (en mill. de €) y número de traspasos realizados.
+ * @author jon.orte
+ *
+ */
 public class clsAgente extends clsPersona implements Serializable, Comparable<clsAgente>{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3486390554402644510L;
 	private int num_licencia;
-	private LinkedList<clsJugador> representados=new LinkedList<clsJugador>();
 	private double dinero_recibido;
 	private int traspasos;
 	
@@ -19,12 +22,7 @@ public class clsAgente extends clsPersona implements Serializable, Comparable<cl
 	public void setNum_licencia(int num_licencia) {
 		this.num_licencia = num_licencia;
 	}
-	public LinkedList<clsJugador> getRepresentados() {
-		return representados;
-	}
-	public void setRepresentados(LinkedList<clsJugador> representados) {
-		this.representados = representados;
-	}
+
 	public double getDinero_recibido() {
 		return dinero_recibido;
 	}
@@ -42,6 +40,10 @@ public class clsAgente extends clsPersona implements Serializable, Comparable<cl
 		string=nombre+" "+apellido+". Número de licencia: "+num_licencia;
 		return string;
 	}
+	/**
+	 * Método compareTo de la interfaz Comparable utilizado para comparar dos agentes en base al dinero recibido en comisiones
+	 * @author jon.orte
+	 */
 	@Override
 	public int compareTo(clsAgente arg0) {
 		// TODO Auto-generated method stub
@@ -54,6 +56,10 @@ public class clsAgente extends clsPersona implements Serializable, Comparable<cl
 		}
 		return comp;
 	}
+	/**
+	 * Método hashCode que generará un código único para agente en base a su número de licencia
+	 * @author jon.orte
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -61,6 +67,10 @@ public class clsAgente extends clsPersona implements Serializable, Comparable<cl
 		result = prime * result + num_licencia;
 		return result;
 	}
+	/**
+	 * Método equals que compara dos agentes en base a su número de licencia
+	 * @author jon.orte
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

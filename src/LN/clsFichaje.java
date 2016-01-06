@@ -1,31 +1,37 @@
 package LN;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.LinkedList;
 
+/**
+ * Clase que relaciona un jugador con el club que ha realizado su fichaje. También incluye detalles como el coste del fichaje (en mill. de €) y
+ * el porcentaje de comisión que se lleva el agente. Implementa las interfaces Comparable y Serializable
+ * @author jon.orte
+ *
+ */
 public class clsFichaje implements Serializable, Comparable<clsFichaje>{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8266056360133085552L;
-	private clsClub club;
-	private clsJugador jugador;
+	private int id_jugador;
+	private int id_club;
 	private double coste;
-	private int duracion;
 	private int comision;
-	private double salario;
 	
-	public clsClub getClub() {
-		return club;
+	public int getId_jugador() {
+		return id_jugador;
 	}
-	public void setClub(clsClub club) {
-		this.club = club;
+	public void setId_jugador(int id_jugador) {
+		this.id_jugador = id_jugador;
 	}
-	public clsJugador getJugador() {
-		return jugador;
+	public int getId_club() {
+		return id_club;
 	}
-	public void setJugador(clsJugador jugador) {
-		this.jugador = jugador;
+	public void setId_club(int id_club) {
+		this.id_club = id_club;
 	}
 	public double getCoste() {
 		return coste;
@@ -33,29 +39,40 @@ public class clsFichaje implements Serializable, Comparable<clsFichaje>{
 	public void setCoste(double coste) {
 		this.coste = coste;
 	}
-	public int getDuracion() {
-		return duracion;
-	}
-	public void setDuracion(int duracion) {
-		this.duracion = duracion;
-	}
 	public int getComision() {
 		return comision;
 	}
 	public void setComision(int comision) {
 		this.comision = comision;
 	}
-	public double getSalario() {
-		return salario;
-	}
-	public void setSalario(double salario) {
-		this.salario = salario;
-	}
+	/**
+	 * Método toString que hace varias llamadas a métodos de clsGestor para, con los ID de club y jugador que tiene, conseguir los atributos
+	 * de nombre, nacionalidad, etc. de los mismos y con ellos generar un String.
+	 * @author jon.orte
+	 */
 	public String toString(){
-		String string;
-		string=jugador.toString()+". Fichado por "+club.getNombre()+". Coste del fichaje: "+coste;
-		return string;
+		String str=null;
+		clsGestor ges=new clsGestor();
+		LinkedList<clsJugador> listaJ;
+		clsJugador jug=new clsJugador();
+		LinkedList<clsClub> listaC;
+		clsClub club=new clsClub();
+		try {
+			listaJ = ges.ListaJugadores();
+			jug=listaJ.get(ges.BuscarJugador(id_jugador));
+			listaC = ges.ListaClubes();
+			club=listaC.get(ges.BuscarClub(id_club));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		str=jug.getNombre()+" "+jug.getApellido()+". , fichado por "+club.getNombre();
+		return str;
 	}
+	/**
+	 * Método compareTo de la interfaz Comparable que compara dos fichajes en base a su coste
+	 * @author jon.orte
+	 */
 	@Override
 	public int compareTo(clsFichaje arg0) {
 		// TODO Auto-generated method stub
@@ -68,14 +85,21 @@ public class clsFichaje implements Serializable, Comparable<clsFichaje>{
 		}
 		return comp;
 	}
+	/**
+	 * Método HashCode que genera un código único en base a los ID del jugador y el club involucrados en el fichaje
+	 * @author jon.orte
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((club == null) ? 0 : club.hashCode());
-		result = prime * result + ((jugador == null) ? 0 : jugador.hashCode());
+		result = prime * result + id_club;
+		result = prime * result + id_jugador;
 		return result;
 	}
+	/**
+	 * Método equals que comprueba si dos fichajes son iguales en base a si los IDs de club y jugador de ambos son iguales
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -85,17 +109,13 @@ public class clsFichaje implements Serializable, Comparable<clsFichaje>{
 		if (getClass() != obj.getClass())
 			return false;
 		clsFichaje other = (clsFichaje) obj;
-		if (club == null) {
-			if (other.club != null)
-				return false;
-		} else if (!club.equals(other.club))
+		if (id_club != other.id_club)
 			return false;
-		if (jugador == null) {
-			if (other.jugador != null)
-				return false;
-		} else if (!jugador.equals(other.jugador))
+		if (id_jugador != other.id_jugador)
 			return false;
 		return true;
 	}
+	
+	
 	
 }

@@ -1,8 +1,13 @@
 package LN;
 
 import java.io.Serializable;
-import java.util.LinkedList;
 
+/**
+ * Objeto de la clase Club. Implementa las interfaces Serializable y Comparable, además de contar con atributos tales como nombre, país,
+ * presupuesto para fichajes (en mill. de €), dinero gastado (en mill. de €) y un ID.
+ * @author jon.orte
+ *
+ */
 public class clsClub implements Serializable, Comparable<clsClub>{
 
 	private static final long serialVersionUID = -3881740560470115469L;
@@ -10,7 +15,7 @@ public class clsClub implements Serializable, Comparable<clsClub>{
 	private String pais;
 	private double presupuesto;
 	private double dinero_gastado;
-	private LinkedList<clsJugador> fichajes=new LinkedList<clsJugador>();
+	private int id_club;
 	
 	public String getNombre() {
 		return nombre;
@@ -36,19 +41,24 @@ public class clsClub implements Serializable, Comparable<clsClub>{
 	public void setDinero_gastado(double dinero_gastado) {
 		this.dinero_gastado = dinero_gastado;
 	}
-	public LinkedList<clsJugador> getFichajes() {
-		return fichajes;
+	
+	public int getId_club() {
+		return id_club;
 	}
-	public void setFichajes(LinkedList<clsJugador> fichajes) {
-		this.fichajes = fichajes;
+	public void setId_club(int id_club) {
+		this.id_club = id_club;
 	}
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
 		String string;
-		string=nombre+" ("+pais+")";
+		string=nombre+" ("+pais+")"+id_club;
 		return string;
 	}
+	/**
+	 * Método compareTo de la interfaz Comparable que compara dos clubes en base al dinero que han gastado en fichajes.
+	 * @author jon.orte
+	 */
 	@Override
 	public int compareTo(clsClub arg0) {
 		// TODO Auto-generated method stub
@@ -61,6 +71,10 @@ public class clsClub implements Serializable, Comparable<clsClub>{
 		}
 		return comp;
 	}
+	/**
+	 * Método HashCode que genera un código en base al nombre y país de origen del club
+	 * @author jon.orte
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -69,6 +83,10 @@ public class clsClub implements Serializable, Comparable<clsClub>{
 		result = prime * result + ((pais == null) ? 0 : pais.hashCode());
 		return result;
 	}
+	/**
+	 * Método equals utilizado para comprobar si dos clubes son iguales en base a su nombre y su país de origen
+	 * @author jon.orte
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

@@ -1,7 +1,5 @@
 package LP;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -24,8 +22,15 @@ import comun.DuplicadoException;
 import LN.clsClub;
 import LN.clsGestor;
 
+/**
+ * Ventana que muestra al usuario un formulario con los campos necesarios para dar de alta un nuevo objeto de la clase clsClub. Implementa las
+ * interfaces ActionListener y DocumentListener
+ * @author jon.orte
+ *
+ */
 public class NuevoClubFrm extends JFrame implements ActionListener, DocumentListener{
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JLabel lblNombre;
@@ -103,6 +108,11 @@ public class NuevoClubFrm extends JFrame implements ActionListener, DocumentList
 	}
 
 
+	/**
+	 * Una vez rellenados los campos y pulsado el botón aceptar, se llamará a clsGestor para que cree un nuevo objeto clsClub con esos
+	 * atributos, saltando un cuadro de diálogo si ese club resulta estar repetido
+	 * @author jon.orte
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -129,19 +139,26 @@ public class NuevoClubFrm extends JFrame implements ActionListener, DocumentList
 	}
 
 
+	/**
+	 * Sirve para activar el botón aceptar, desactivado por defecto, una vez haya algo escrito en el campo de texto
+	 * @author jon.orte
+	 */
 	@Override
 	public void insertUpdate(DocumentEvent e) {
 		// TODO Auto-generated method stub
-		if(textField.getText().equals(null)==false){
+		if(textField.getText().equals("")==false){
 			btnAceptar.setEnabled(true);
 		}
 	}
 
 
+	/**
+	 * Sirve para desactivar el botón aceptar si el campo de texto está vacío
+	 */
 	@Override
 	public void removeUpdate(DocumentEvent e) {
 		// TODO Auto-generated method stub
-		if(textField.getText().equals(null)==false){
+		if(textField.getText().equals("")){
 			btnAceptar.setEnabled(false);
 		}
 	}
@@ -150,7 +167,7 @@ public class NuevoClubFrm extends JFrame implements ActionListener, DocumentList
 	@Override
 	public void changedUpdate(DocumentEvent e) {
 		// TODO Auto-generated method stub
-		if(textField.getText().equals(null)==false){
+		if(textField.getText().equals("")){
 			btnAceptar.setEnabled(false);
 		}
 	}

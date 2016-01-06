@@ -13,12 +13,19 @@ import java.util.LinkedList;
 
 import comun.clsConstantes.enFicDatos;
 
+/**
+ * Clase que se usará para leer y escribir de ficheros
+ * @author jon.orte
+ *
+ */
+
 public class clsDatos implements itfDatos{
 	
 	private final String RUTA_JUGADORES="src\\dat\\jugadores.dat";
 	private final String RUTA_AGENTES="src\\dat\\agentes.dat";
 	private final String RUTA_CLUBES="src\\dat\\clubes.dat";
 	private final String RUTA_FICHAJES="src\\dat\\fichajes.dat";
+	private final String RUTA_CONTRATOS="src\\dat\\contratos.dat";
 	
 	ObjectOutputStream oos;
 	AppendableObjectOutputStream aoos;
@@ -26,6 +33,14 @@ public class clsDatos implements itfDatos{
 	FileOutputStream fos;
 	FileInputStream fis;
 
+	/**
+	 * Método que debe crear un objectOutputStream o un AppendableObjectOutputStream para proceder
+	 * a la escritura del fichero. Si el fichero existe,AppendableObjectOutputStream; de lo 
+	 * contrario objectOutputStream
+	 * @author jon.orte
+	 * @param fic enumerado de la clase clsConstantes que indica el fichero del que se va a escribir
+	 * @return ruta del fichero 
+	 */
 	public String setFichero(enFicDatos fic){
 		String ruta=null;
 		switch (fic){
@@ -33,10 +48,20 @@ public class clsDatos implements itfDatos{
 		case DAT_AGENTES: ruta = RUTA_AGENTES; break;
 		case DAT_CLUBES: ruta = RUTA_CLUBES; break;
 		case DAT_FICHAJES: ruta = RUTA_FICHAJES; break;
+		case DAT_CONTRATOS: ruta= RUTA_CONTRATOS; break;
 		}
 		return ruta;
 	}
 	
+	/**
+	 * 
+	 * Método que debe crear un objectOutputStream o un AppendableObjectOutputStream para proceder
+	 * a la escritura del fichero. Si el fichero existe,AppendableObjectOutputStream; de lo 
+	 * contrario objectOutputStream
+	 * @author jon.orte
+	 * @param fic enumerado de la clase clsConstantes que indica el fichero del que se va a escribir
+	 * @return void
+	 */
 	@Override
 	public void ComenzarSave(enFicDatos fichero) {
 		// TODO Auto-generated method stub
@@ -61,6 +86,11 @@ public class clsDatos implements itfDatos{
 			}			
 		}
 	}
+	/**
+	 * @author jon.orte
+	 * @return void
+	 * Método que debe cerrar el fichero en el que se ha escrito.
+	 */
 	@Override
 	public void TerminarSave() {
 		// TODO Auto-generated method stub
@@ -81,6 +111,12 @@ public class clsDatos implements itfDatos{
 		}
 	}
 
+	/**
+	 * Método que guarda en el fichero indicado previamente el objeto recibido.
+	 * @author jon.orte
+	 * @param o Objeto a guardar, que debe implementar la interfaz serializable.
+	 * @return void
+	 */
 	@Override
 	public void Save(Serializable o) {
 		// TODO Auto-generated method stub
@@ -97,6 +133,13 @@ public class clsDatos implements itfDatos{
 		}
 		
 	}
+	/**
+	 * Método que crea un objectInputStream para la lectura del fichero indicado previamente.
+	 * @author jon.orte
+	 * @param fichero: enumerado de la clase clsConstantes que indica el fichero del que se va a leer. 
+	 * @return void
+	 * @throws IOException: excepción lanzada en caso de que se dé un error de lectura/escritura en fichero.
+	 */
 	@Override
 	public void ComenzarRead(enFicDatos fichero) throws IOException {
 		String ruta=setFichero(fichero);
@@ -120,6 +163,11 @@ public class clsDatos implements itfDatos{
 		}			
 	}
 
+	/**
+	 * Método que cierra el fichero del que se ha leído.
+	 * @author jon.orte
+	 * @return void
+	 */
 	@Override
 	public void TerminarRead() {
 		try {
@@ -131,6 +179,10 @@ public class clsDatos implements itfDatos{
 		}
 	}
 
+	/**
+	 * @author jon.orte
+	 * @return ArrayList<Serializable>: Devuelve un arraylist con los datos leídos, en el tipo Serializable.
+	 */
 	@Override
 	public LinkedList<Serializable> Read() {
 		LinkedList<Serializable> lista=new LinkedList<Serializable>();
@@ -154,6 +206,12 @@ public class clsDatos implements itfDatos{
 		return lista;
 	}
 
+	/**
+	 * Se borra el fichero (porque vamos a escribir datos modificados).
+	 * @author jon.orte
+	 * @param fichero enumerado de la clase clsConstantes que indica el fichero que se va a borrar.
+	 * @return void
+	 */
 	@Override
 	public void ResetFile(enFicDatos fichero) {
 		String ruta=setFichero(fichero);
